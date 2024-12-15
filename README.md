@@ -26,11 +26,6 @@
 - Gestion des erreurs pour les cas tels que les e-mails non enregistrés ou les mots de passe incorrects.
 
 ### 3. 👤 **Écran de profil** (ProfileFragment)
-- Affichage des informations personnelles de l'utilisateur :
-  - 👤 Nom complet
-  - 📧 Adresse e-mail
-  - 🎂 Âge
-  - 🪪 Type de permis
 - Génération dynamique d'un **QR code** contenant les informations utilisateur.
 - Animations fluides pour une transition visuelle agréable.
 - Bouton de déconnexion sécurisé avec retour à l'écran de connexion.
