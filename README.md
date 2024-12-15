@@ -43,6 +43,7 @@
 ```bash
 git clone https://github.com/username/taxixact.git
 cd taxixact
+```
 ### 2. 🔧 Configurer Firebase
 1. Créez un projet sur [Firebase Console](https://console.firebase.google.com/).
 2. Téléchargez le fichier `google-services.json` et placez-le dans le dossier `app` de votre projet.
