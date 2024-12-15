@@ -4,7 +4,7 @@
 
 ## 📜 Description du projet
 
-**Taxi Meter** Développer une application Android en Kotlin permettant de simuler le fonctionnement d'un compteur de taxi. L'application doit calculer et afficher en temps réel la distance parcourue, le temps de trajet et le tarif de la course, en prenant en compte les paramètres de base tels que le tarif au kilomètre et le temps d'attente. L'application doit également permettre l'inscription, la connexion, et l'affichage des informations personnelles des utilisateurs (nom, e-mail, âge, type de permis), ainsi que la génération d'un QR code dynamique pour chaque profil. L'application utilise Firebase pour l'authentification des utilisateurs et le stockage des données.
+- **Taxi Meter** est une application Android en Kotlin permettant de simuler le fonctionnement d'un compteur de taxi. L'application doit calculer et afficher en temps réel la distance parcourue, le temps de trajet et le tarif de la course, en prenant en compte les paramètres de base tels que le tarif au kilomètre et le temps d'attente. L'application doit également permettre l'inscription, la connexion, et l'affichage des informations personnelles des utilisateurs (nom, e-mail, âge, type de permis), ainsi que la génération d'un QR code dynamique pour chaque profil. L'application utilise Firebase pour l'authentification des utilisateurs et le stockage des données.
 ---
 
 ## ⚙️ Fonctionnalités principales
