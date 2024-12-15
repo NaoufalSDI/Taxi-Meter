@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
+    <string name="app_name">Taxi Meter</string>
+    <string name="toggle_button_text_start">Démarrer</string>
+    <string name="toggle_button_text_finish">Terminer</string>
+    <string name="back_text_view">Retour</string>
+    <string name="your_information_inside">Vos informations sont à l\'intérieur</string>
+    <string name="notification_title">Résumé du Taxi Meter</string>
+    <string name="notification_content">Distance: %.2f km, Temps: %d min, Tarif: %.2f DH</string>
+    <string name="logout_button">SE DÉCONNECTER</string>
+    <string name="splash_text">Taxi Meter</string>
+    <string name="signup_welcome_text">Bienvenue,\nInscrivez-vous pour continuer</string>
+    <string name="signup_name_hint">Entrez votre nom</string>
+    <string name="signup_email_hint">Entrez votre email</string>
+    <string name="signup_age_hint">Entrez votre âge</string>
+    <string name="signup_permit_hint">Entrez votre type de permis</string>
+    <string name="signup_password_hint">Entrez votre mot de passe</string>
+    <string name="signup_confirm_password_hint">Confirmez votre mot de passe</string>
+    <string name="signup_button">S\'inscrire</string>
+    <string name="signup_existing_account_text">Déjà inscrit, Connectez-vous !</string>
+    <string name="signin_welcome_text">Salut encore,\nConnectez-vous pour continuer</string>
+    <string name="signin_email_hint">Entrez votre email</string>
+    <string name="signin_password_hint">Entrez votre mot de passe</string>
+    <string name="signin_button">Se connecter</string>
+    <string name="signin_new_account_text">Pas encore inscrit, Inscrivez-vous !</string>
+    <string name="accurate_fare_estimation">Estimation précise du tarif</string>
+    <string name="fare_description">Calculez facilement le coût de votre course avec précision grâce à notre système de compteur de taxi intégré.</string>
+    <string name="next_onboarding">Suivant ></string>
+    <string name="real_time_route_tracking">Suivi en temps réel de l\'itinéraire</string>
+    <string name="route_description">Suivez votre itinéraire et surveillez votre voyage en temps réel pour une expérience transparente et sécurisée.</string>
+    <string name="sign_up">S\'inscrire ></string>
+</resources>

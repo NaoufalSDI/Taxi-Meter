@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FirstOnBoardingFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="500dp"
+            android:layout_height="300dp"
+            android:src="@drawable/taxi_map_meter_price"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/texts"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:id="@+id/texts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/accurate_fare_estimation"
+                android:textColor="#FFD700"
+                android:textSize="23sp"
+                android:paddingHorizontal="40dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fare_description"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="#B3FFFFFF"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="40dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/first_next"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="@string/next_onboarding"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="#FFD700"
+            android:textAlignment="center"
+            android:paddingVertical="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

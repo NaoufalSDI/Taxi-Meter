@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ar">
+    <string name="app_name">عداد التاكسي</string>
+    <string name="notification_title">ملخص عداد التاكسي</string>
+    <string name="notification_content">المسافة: %.2f كم، الوقت: %d دقيقة، الأجرة: %.2f درهم</string>
+    <string name="toggle_button_text_start">ابدأ</string>
+    <string name="toggle_button_text_finish">انهاء</string>
+    <string name="back_text_view">رجوع</string>
+    <string name="your_information_inside">معلوماتك موجودة داخل</string>
+    <string name="logout_button">تسجيل الخروج</string>
+    <string name="splash_text">عداد التاكسي</string>
+    <string name="signup_welcome_text">مرحبًا،\nقم بالتسجيل للمتابعة</string>
+    <string name="signup_name_hint">أدخل اسمك</string>
+    <string name="signup_email_hint">أدخل بريدك الإلكتروني</string>
+    <string name="signup_age_hint">أدخل عمرك</string>
+    <string name="signup_permit_hint">أدخل نوع تصريحك</string>
+    <string name="signup_password_hint">أدخل كلمة المرور الخاصة بك</string>
+    <string name="signup_confirm_password_hint">تأكيد كلمة المرور</string>
+    <string name="signup_button">سجل</string>
+    <string name="signup_existing_account_text">مسجل بالفعل ، قم بتسجيل الدخول!</string>
+    <string name="signin_welcome_text">مرحبًا مجددًا،\nقم بتسجيل الدخول لتكملة</string>
+    <string name="signin_email_hint">أدخل بريدك الإلكتروني</string>
+    <string name="signin_password_hint">أدخل كلمة المرور الخاصة بك</string>
+    <string name="signin_button">تسجيل الدخول</string>
+    <string name="signin_new_account_text">لم تسجل بعد؟ قم بالتسجيل!</string>
+    <string name="accurate_fare_estimation">تقدير دقيق للتكلفة</string>
+    <string name="fare_description">احسب تكلفة رحلتك بدقة باستخدام نظام عداد التاكسي المدمج لدينا.</string>
+    <string name="next_onboarding">التالي ></string>
+    <string name="real_time_route_tracking">تتبع المسار في الوقت الفعلي</string>
+    <string name="route_description">تتبع مسار رحلتك وراقبها في الوقت الفعلي للحصول على تجربة شفافة وآمنة.</string>
+    <string name="sign_up">سجل الآن ></string>
+</resources>

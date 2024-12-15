@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "670822914648",
+    "project_id": "taxi-meter-project-73fad",
+    "storage_bucket": "taxi-meter-project-73fad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670822914648:android:bb70ee447014229d8f482d",
+        "android_client_info": {
+          "package_name": "com.example.taxixact"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmg0IdQ4OzwZJIjITnOWm5JgkDXoNIbQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

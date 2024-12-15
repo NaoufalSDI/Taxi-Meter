@@ -1,0 +1,104 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment"
+    android:background="#161616">
+
+    <ProgressBar
+        android:id="@+id/loadingVideoView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        android:indeterminateDrawable="@drawable/progress_bar_custom"
+        android:progress="0" />
+
+    <!-- LinearLayout to hold the content, with padding -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="top|center_horizontal">
+
+        <!-- Back profile button, always visible -->
+        <TextView
+            android:id="@+id/back_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_text_view"
+            android:textColor="#FF9E00"
+            android:layout_gravity="end"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="10dp"
+            android:textSize="19sp"
+            android:fontFamily="@font/roboto_regular"
+            android:textStyle="bold"/>
+
+        <!-- Profile information section, initially hidden -->
+        <LinearLayout
+            android:id="@+id/profile_informations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/helloTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="60dp"/>
+
+            <TextView
+                android:id="@+id/emailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="#F2F6F6F6"
+                android:textSize="17sp"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginBottom="70dp"/>
+
+            <TextView
+                android:id="@+id/findinfqr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/your_information_inside"
+                android:textColor="#BFF6F6F6"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="15sp"
+                android:layout_marginBottom="15dp"/>
+
+            <ImageView
+                android:id="@+id/qrCodeImageView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="90dp"
+                tools:ignore="ContentDescription" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sign_out_profile"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/logout_button"
+                android:textColor="#161616"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="21sp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_background"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

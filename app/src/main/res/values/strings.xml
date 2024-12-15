@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Taxi Meter</string>
+    <string name="toggle_button_text_start">Start</string>
+    <string name="toggle_button_text_finish">Finish</string>
+    <string name="notification_title">Taxi Meter Summary</string>
+    <string name="notification_content">Distance: %.2f km, Time: %d min, Fare: %.2f DH</string>
+    <string name="back_text_view">Back</string>
+    <string name="your_information_inside">Your information are inside</string>
+    <string name="logout_button">LOG OUT</string>
+    <string name="splash_text">Taxi Meter</string>
+    <string name="signup_welcome_text">Welcome,\nSign Up to continue</string>
+    <string name="signup_name_hint">Type Your Name</string>
+    <string name="signup_email_hint">Type Your Email</string>
+    <string name="signup_age_hint">Type Your Age</string>
+    <string name="signup_permit_hint">Type Your Permis Type</string>
+    <string name="signup_password_hint">Type Your Password</string>
+    <string name="signup_confirm_password_hint">Confirm Your Password</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="signup_existing_account_text">Already Registered , Sign In !</string>
+    <string name="signin_welcome_text">Hi again,\nSign In to continue</string>
+    <string name="signin_email_hint">Type Your Email</string>
+    <string name="signin_password_hint">Type Your Password</string>
+    <string name="signin_button">Sign In</string>
+    <string name="signin_new_account_text">Not Registered Yet , Sign Up !</string>
+    <string name="accurate_fare_estimation">Accurate Fare Estimation</string>
+    <string name="fare_description">Easily calculate your ride\'s cost with precision using our built-in taxi meter system.</string>
+    <string name="next_onboarding">Next ></string>
+    <string name="real_time_route_tracking">Real-Time Route Tracking</string>
+    <string name="route_description">Track your route and monitor your trip in real-time for a transparent and secure experience.</string>
+    <string name="sign_up">Sign Up ></string>
+</resources>

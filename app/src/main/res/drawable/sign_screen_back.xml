@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Black Background -->
+    <item>
+        <color android:color="#161616" /> <!-- Black background -->
+    </item>
+
+    <!-- Yellow Curved Shape with Limited Height -->
+    <item android:bottom="700dp"> <!-- Adjust the top offset to control height -->
+        <shape android:shape="rectangle">
+            <solid android:color="#FFC400" />
+            <corners android:bottomRightRadius="500dp" />
+        </shape>
+    </item>
+
+</layer-list>
