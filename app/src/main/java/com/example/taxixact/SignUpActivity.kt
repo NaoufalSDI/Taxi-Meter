@@ -2,6 +2,7 @@ package com.example.taxixact
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -73,8 +74,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun makeSystemBarsTransparent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
-            window.statusBarColor = android.graphics.Color.TRANSPARENT
-            window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
         } else {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = (
@@ -84,8 +85,8 @@ class SignUpActivity : AppCompatActivity() {
                             or View.SYSTEM_UI_FLAG_FULLSCREEN
                             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                             or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-            window.statusBarColor = android.graphics.Color.TRANSPARENT
-            window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
         }
     }
 
@@ -153,24 +154,21 @@ class SignUpActivity : AppCompatActivity() {
                         db.collection("users").document(user.uid)
                             .set(userData)
                             .addOnSuccessListener {
-                                // Hide the video on success
                                 loadingVideo.visibility = View.GONE
-
-                                // Show success message and redirect to SignIn
-                                Toast.makeText(this, "Inscription réussie !", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this, SignInActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
                             .addOnFailureListener { e ->
                                 loadingVideo.visibility = View.GONE
-                                Toast.makeText(this, "Erreur Firestore : ${e.message}", Toast.LENGTH_SHORT).show()
+
+                                CustomToast.show(this, "Error : ${e.message}", Color.parseColor("#F5FFFFFF"), R.drawable.error_icon, R.drawable.error_background)
                             }
                     }
                 } else {
                     // Hide video and show error message for Firebase Auth registration failure
                     loadingVideo.visibility = View.GONE
-                    Toast.makeText(this, "Erreur lors de l'inscription : ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    CustomToast.show(this, "Error : ${task.exception?.message}", Color.parseColor("#F5FFFFFF"), R.drawable.error_icon, R.drawable.error_background)
                 }
             }
             .addOnFailureListener {
@@ -193,7 +191,7 @@ class SignUpActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 // Handle error while checking email
-                Toast.makeText(this, "Erreur lors de la vérification de l'email : ${e.message}", Toast.LENGTH_SHORT).show()
+                CustomToast.show(this, "Checking Email Error : ${e.message}", Color.parseColor("#F5FFFFFF"), R.drawable.error_icon, R.drawable.error_background)
                 callback(false)  // Treat it as if the email doesn't exist on error
             }
     }

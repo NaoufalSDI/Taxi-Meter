@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:visibility="visible"
         android:indeterminateDrawable="@drawable/progress_bar_custom"
-        android:progress="0" />
+        />
 
     <!-- LinearLayout to hold the content, with padding -->
     <LinearLayout

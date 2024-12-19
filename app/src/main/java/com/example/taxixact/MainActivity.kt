@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
 
     // Pricing rates
     private val baseFare = 2.5
-    private val ratePerKilometer = 1.5
+    private val ratePerKilometer = 0.015
     private val ratePerMinute = 0.5
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +78,6 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
 
     private fun loadMapFragment() {
         mapFragment = MapFragment()
-        mapFragment.setMapFragmentListener(this)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, mapFragment)
             .commit()
@@ -85,7 +85,13 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
 
     private fun toggleTracking() {
         if (!EasyPermissions.hasPermissions(this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Toast.makeText(this, "Location permission is required to track your ride.", Toast.LENGTH_SHORT).show()
+            CustomToast.show(
+                this,
+                "Location permission is required to track your ride.",
+                Color.parseColor("#F5FFFFFF"),
+                R.drawable.error_icon,
+                R.drawable.error_background
+            )
             mapFragment.requestLocationPermission()
             return
         }
@@ -183,7 +189,6 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
 
     }
 
-    // Additional methods for profile and system bars
     private fun showProfileFragment() {
         findViewById<LinearLayout>(R.id.header).visibility = View.GONE
         findViewById<FrameLayout>(R.id.fragment_container).visibility = View.GONE
@@ -225,8 +230,8 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
     private fun makeSystemBarsTransparent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
-            window.statusBarColor = android.graphics.Color.TRANSPARENT
-            window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
         } else {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = (
@@ -236,8 +241,8 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
                             or View.SYSTEM_UI_FLAG_FULLSCREEN
                             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                             or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-            window.statusBarColor = android.graphics.Color.TRANSPARENT
-            window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
         }
     }
 }

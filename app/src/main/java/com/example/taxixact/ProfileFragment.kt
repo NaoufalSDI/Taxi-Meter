@@ -32,7 +32,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize views
         helloTextView = view.findViewById(R.id.helloTextView)
         emailTextView = view.findViewById(R.id.emailTextView)
         qrCodeImageView = view.findViewById(R.id.qrCodeImageView)
@@ -43,17 +42,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         val signOutButton: AppCompatButton = view.findViewById(R.id.sign_out_profile)
 
-        // Set up "Back" button listener
         backProfileTextView.setOnClickListener {
-            onBackClickListener?.invoke() // Trigger callback
-            parentFragmentManager.popBackStack() // Go back to the previous fragment
+            onBackClickListener?.invoke()
+            parentFragmentManager.popBackStack()
         }
 
         signOutButton.setOnClickListener {
             signOutAndNavigateToLogin()
         }
 
-        // Fetch user data
         fetchUserData()
     }
 
@@ -67,10 +64,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             userDocRef.get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
-                        val name = document.getString("name") ?: "User"
+                        val name = document.getString("name")?.uppercase() ?: "User"
                         val email = document.getString("email") ?: "email@example.com"
                         val age = document.getLong("age")?.toInt() ?: 0
-                        val permit = document.getString("permit") ?: "N/A"
+                        val permit = document.getString("permit")?.uppercase() ?: "N/A"
 
                         helloTextView.text = "Hello, $name"
                         emailTextView.text = email

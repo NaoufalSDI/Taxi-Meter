@@ -19,15 +19,20 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import pub.devrel.easypermissions.EasyPermissions
 
-class MapFragment : Fragment(R.layout.fragment_map),
-    OnMapReadyCallback,
-    EasyPermissions.PermissionCallbacks {
+class MapFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
 
     private var listener: MapFragmentListener? = null
     private lateinit var googleMap: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
-    var isLocationSet = false
+    private val fusedLocationClient: FusedLocationProviderClient by lazy {
+        LocationServices.getFusedLocationProviderClient(requireContext())
+    }
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            super.onLocationResult(locationResult)
+            val location = locationResult.lastLocation ?: return
+            handleLocationUpdate(location)
+        }
+    }
     private var isTracking = false
     private var startMarker: Marker? = null
     private var lastLocation: Location? = null
@@ -41,8 +46,6 @@ class MapFragment : Fragment(R.layout.fragment_map),
         fun onDistanceUpdated(distance: Float)
     }
 
-    private var mapFragmentListener: MapFragmentListener? = null
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is MapFragmentListener) {
@@ -52,46 +55,47 @@ class MapFragment : Fragment(R.layout.fragment_map),
         }
     }
 
-    fun setMapFragmentListener(listener: MapFragmentListener) {
-        this.mapFragmentListener = listener
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+        applyMapStyle()
+        requestLocationPermission()
+    }
 
+    private fun applyMapStyle() {
         try {
             val success = googleMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_dark_style)
             )
-            if (!success) {
-                Log.e("MapFragment", "Failed to apply map style.")
-            }
+            if (!success) Log.e("MapFragment", "Failed to apply map style.")
         } catch (e: Resources.NotFoundException) {
-            e.printStackTrace()
+            Log.e("MapFragment", "Map style not found.", e)
         }
-        requestLocationPermission()
     }
 
     private fun enableUserLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (hasLocationPermission()) {
             googleMap.isMyLocationEnabled = true
         }
     }
 
-     fun requestLocationPermission() {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+
+        if (hasLocationPermission()) {
+            enableUserLocation()
+        } else {
+            requestLocationPermission()
+        }
+    }
+
+    fun requestLocationPermission() {
         if (EasyPermissions.hasPermissions(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
             enableUserLocation()
         } else {
@@ -104,137 +108,67 @@ class MapFragment : Fragment(R.layout.fragment_map),
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            requestLocationPermission()
-        }
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            enableUserLocation()
-        }
+    private fun hasLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     fun startTracking() {
-        isTracking = true
-        totalDistance = 0f
-        startMarker?.remove()
-        startMarker = null
-        lastLocation = null
-
-        // Initialize locationCallback here to ensure it's always defined
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                val location = locationResult.lastLocation
-                if (location != null) {
-                    lastLocation = location
-                    val initialLatLng = LatLng(location.latitude, location.longitude)
-
-                    startMarker = googleMap.addMarker(
-                        MarkerOptions()
-                            .position(initialLatLng)
-                            .title("Start Point")
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    )
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialLatLng, 16f))
-
-                    isLocationSet = true
-                    startLocationUpdates()
-                }
-            }
-        }
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED) {
-            val locationRequest = LocationRequest.create().apply {
-                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                numUpdates = 1
-            }
-
-            fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
-            )
-        } else {
+        if (!hasLocationPermission()) {
             requestLocationPermission()
+            return
         }
+
+        isTracking = true
+        resetTrackingData()
+
+        val locationRequest = LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
     }
 
     fun stopTracking() {
         isTracking = false
-
-        if (::locationCallback.isInitialized) {
-            fusedLocationClient.removeLocationUpdates(locationCallback)
-        }
-
-        startMarker?.remove()
-        startMarker = null
-        totalDistance = 0f
-        lastLocation = null
-        isLocationSet = false
-        mapFragmentListener?.onDistanceUpdated(0f)
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+        resetTrackingData()
+        listener?.onDistanceUpdated(0f)
     }
 
-
-    private fun startLocationUpdates() {
-        val locationRequest = LocationRequest.create().apply {
-            interval = 1000L
-            fastestInterval = 100L
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            smallestDisplacement = 1f
-        }
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                super.onLocationResult(locationResult)
-                val currentLocation = locationResult.lastLocation
-
-                if (currentLocation != null && isTracking) {
-                    handleLocationUpdate(currentLocation)
-                }
-            }
-        }
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && isTracking
-        ) {
-            fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
-            )
-        }
+    private fun resetTrackingData() {
+        startMarker?.remove()
+        startMarker = null
+        lastLocation = null
+        totalDistance = 0f
     }
 
     private fun handleLocationUpdate(location: Location) {
-        if (lastLocation != null) {
-            val distanceMoved = lastLocation?.distanceTo(location) ?: 0f
-            if (distanceMoved > 2) {
-                totalDistance += distanceMoved
-                mapFragmentListener?.onDistanceUpdated(totalDistance)
-                val currentLatLng = LatLng(location.latitude, location.longitude)
-                googleMap.animateCamera(CameraUpdateFactory.newLatLng(currentLatLng))
-            }
+        if (lastLocation == null) {
+            lastLocation = location
+            startMarker = googleMap.addMarker(
+                MarkerOptions()
+                    .position(LatLng(location.latitude, location.longitude))
+                    .title("Start")
+            )
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(startMarker!!.position, 15f))
+            return
         }
+
+        val distanceMoved = lastLocation!!.distanceTo(location)
+        if (distanceMoved > 2) {
+            totalDistance += distanceMoved
+            listener?.onDistanceUpdated(totalDistance)
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
+        }
+
         lastLocation = location
     }
 
-
-
     override fun onDestroyView() {
         super.onDestroyView()
-        isTracking = false
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        stopTracking()
     }
 }

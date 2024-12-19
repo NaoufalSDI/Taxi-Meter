@@ -19,7 +19,7 @@
         android:theme="@style/Theme.TaxiXact"
         tools:targetApi="31" >
         <activity
-            android:name=".SignInActivity"
+            android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/SplashTheme"/>
         <activity
@@ -31,7 +31,7 @@
             android:exported="false"
             android:theme="@style/SplashTheme"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".SignInActivity"
             android:exported="false"
             android:theme="@style/SplashTheme"/>
         <activity
@@ -42,7 +42,6 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -2,9 +2,11 @@ package com.example.taxixact
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +25,8 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var passwordField: TextInputEditText
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-
+    private var isSigningIn = false
+    private lateinit var signInLoading: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -49,6 +52,8 @@ class SignInActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
+        signInLoading = findViewById(R.id.signInLoading)
+
         findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.signInButton).setOnClickListener {
             signIn()
         }
@@ -62,8 +67,8 @@ class SignInActivity : AppCompatActivity() {
     private fun makeSystemBarsTransparent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
-            window.statusBarColor = android.graphics.Color.TRANSPARENT
-            window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
         } else {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = (
@@ -73,12 +78,14 @@ class SignInActivity : AppCompatActivity() {
                             or View.SYSTEM_UI_FLAG_FULLSCREEN
                             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                             or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-            window.statusBarColor = android.graphics.Color.TRANSPARENT
-            window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
         }
     }
 
     private fun signIn() {
+        if (isSigningIn) return
+
         val email = emailField.text.toString().trim()
         val password = passwordField.text.toString().trim()
 
@@ -93,20 +100,27 @@ class SignInActivity : AppCompatActivity() {
             return
         }
 
+        isSigningIn = true
+
+        signInLoading.visibility = View.VISIBLE
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show()
+                signInLoading.visibility = View.GONE
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
             .addOnFailureListener { exception ->
+                signInLoading.visibility = View.GONE
+                isSigningIn = false
                 val errorMessage = when (exception) {
-                    is FirebaseAuthInvalidCredentialsException -> "Email ou mot de passe invalide"
+                    is FirebaseAuthInvalidCredentialsException -> "incorrect Email or Password"
                     is FirebaseAuthInvalidUserException -> "Utilisateur introuvable ou désactivé"
                     else -> "Une erreur inconnue est survenue : ${exception.message}"
                 }
-                Toast.makeText(this, "Erreur : $errorMessage", Toast.LENGTH_SHORT).show()
+                CustomToast.show(this, "Erreur : $errorMessage", Color.parseColor("#F5FFFFFF"), R.drawable.error_icon, R.drawable.error_background)
+
             }
     }
 }
