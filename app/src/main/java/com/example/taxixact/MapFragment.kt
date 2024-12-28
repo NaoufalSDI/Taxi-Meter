@@ -65,6 +65,15 @@ class MapFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
         googleMap = map
         applyMapStyle()
         requestLocationPermission()
+        if (hasLocationPermission()) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                location?.let {
+                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLatLng, 9f) // Zoom niveau 15 (modifiez-le comme vous le souhaitez)
+                    googleMap.animateCamera(cameraUpdate)
+                }
+            }
+        }
     }
 
     private fun applyMapStyle() {
@@ -160,12 +169,14 @@ class MapFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
         val distanceMoved = lastLocation!!.distanceTo(location)
         if (distanceMoved > 2) {
             totalDistance += distanceMoved
-            listener?.onDistanceUpdated(totalDistance)
+            val totalDistanceInKm = totalDistance / 1000
+            listener?.onDistanceUpdated(totalDistanceInKm)
             googleMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
         }
 
         lastLocation = location
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

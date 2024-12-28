@@ -134,20 +134,27 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
 
         distanceTextView.text = "0 m"
         timerTextView.text = "0 min"
-        fareTextView.text = "0 DH"
+        fareTextView.text = "0"
     }
 
     override fun onDistanceUpdated(distance: Float) {
         if (isTracking) {
             totalDistance = distance
+            val displayDistance = if (totalDistance >= 1000) {
+                String.format("%.2f km", totalDistance / 1000)
+            } else {
+                String.format("%.2f m", totalDistance)
+            }
+
             updateUI(totalDistance, totalTime, calculateFare(totalDistance, totalTime))
+            distanceTextView.text = displayDistance
         }
     }
 
     private fun updateUI(distance: Float, time: Long, fare: Double) {
         distanceTextView.text = String.format("%.2f m", distance)
         timerTextView.text = String.format("%d min", (time / 60))
-        fareTextView.text = String.format("%.2f DH", fare)
+        fareTextView.text = String.format("%.2f", fare)
     }
 
     private fun calculateFare(distance: Float, time: Long): Double {
@@ -224,6 +231,44 @@ class MainActivity : AppCompatActivity(), MapFragment.MapFragmentListener {
             fragmentManager.popBackStack()
         } else {
             super.onBackPressed()
+        }
+    }
+
+    // Méthode pour masquer les barres
+    private fun hideSystemBars() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
+        }
+    }
+
+    // Méthode pour afficher les barres
+    private fun showSystemBars() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(true)
+            window.statusBarColor = Color.BLACK // ou une couleur de votre choix
+            window.navigationBarColor = Color.BLACK // ou une couleur de votre choix
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_VISIBLE)
+            window.statusBarColor = Color.BLACK // ou une couleur de votre choix
+            window.navigationBarColor = Color.BLACK // ou une couleur de votre choix
         }
     }
 

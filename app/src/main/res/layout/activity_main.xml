@@ -6,24 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#161616">
+    android:background="#161616"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp"
+        android:elevation="10dp">
         <ImageView
             android:id="@+id/profile"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/profile_icon" />
+            android:background="@drawable/profile_background"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile_icon"
+            />
 
     </LinearLayout>
 
@@ -31,12 +33,10 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="15dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Profile Fragment container -->
     <FrameLayout
@@ -50,36 +50,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal"
+            android:gravity="center_vertical"
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_container"
+        android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@id/toggleButton">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginHorizontal="6dp"
-                android:paddingVertical="10dp"
-                android:background="@drawable/item_threeones_bachground">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="72dp"
-                    android:src="@drawable/distance"/>
-                <TextView
-                    android:id="@+id/distance"
-                    android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0 m"
-                    android:textColor="#FF9E00"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/poppins_semibold"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginHorizontal="6dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/item_distance_time_bachground">
+                    <ImageView
+                        android:layout_width="59dp"
+                        android:layout_height="55dp"
+                        android:layout_marginEnd="7dp"
+                        android:src="@drawable/distance"/>
+                    <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0 m"
+                        android:textColor="#FF9E00"
+                        android:textAlignment="center"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/poppins_semibold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="6dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/item_distance_time_bachground">
+                    <ImageView
+                        android:layout_width="59dp"
+                        android:layout_height="55dp"
+                        android:layout_marginEnd="7dp"
+                        android:src="@drawable/timer_icon"/>
+                    <TextView
+                        android:id="@+id/timer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0 min"
+                        android:textColor="#FF9E00"
+                        android:textAlignment="center"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/poppins_semibold"/>
+                </LinearLayout>
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -89,42 +123,24 @@
                 android:gravity="center"
                 android:layout_marginHorizontal="6dp"
                 android:paddingVertical="10dp"
-                android:background="@drawable/item_threeones_bachground">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="72dp"
-                    android:src="@drawable/timer_icon"/>
-                <TextView
-                    android:id="@+id/timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0 min"
-                    android:textColor="#FF9E00"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/poppins_semibold"/>
-            </LinearLayout>
+                android:background="@drawable/item_price_background">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginHorizontal="6dp"
-                android:paddingVertical="10dp"
-                android:background="@drawable/item_threeones_bachground">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="72dp"
-                    android:src="@drawable/money_icon"/>
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 DH"
-                    android:textColor="#FF9E00"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/poppins_semibold"/>
+                    android:text="0"
+                    android:textColor="#24DF53"
+                    android:textSize="87sp"
+                    android:fontFamily="@font/digital_numbers"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DH"
+                    android:textColor="#24DF53"
+                    android:textSize="66sp"
+                    android:fontFamily="@font/digital_numbers"/>
             </LinearLayout>
 
     </LinearLayout>
@@ -139,7 +155,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:textColor="#02021A"
         android:background="@drawable/button_background"
-        app:layout_constraintTop_toBottomOf="@id/payment_detail"
+        android:layout_marginBottom="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
