@@ -86,8 +86,16 @@ cd taxixact
 
 ---
 
+## Figma
+
+<a href="https://www.figma.com/design/NmbxtiFKI4FkvZvJWlQg1S/Untitled?node-id=0-1&p=f&t=a8TwzfAFUmcJhnqG-0">
+Cliquer ici pour consulter le design utilisé
+</a>
+
+---
+
 ## 👥 Contributeurs
-  <img src="https://github.com/user-attachments/assets/9352fa66-a243-4662-8bab-ec475ab88fc2" alt="linkedn_profile" width="200" height="200">
+  <img src="https://github.com/user-attachments/assets/9352fa66-a243-4662-8bab-ec475ab88fc2" alt="linkedn_profile" width="200" height="200" />
 
 - **NaoufalSDI**  
   Développeur principal et concepteur de l'application.
