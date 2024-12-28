@@ -88,7 +88,7 @@ cd taxixact
 
 ## 👥 Contributeurs
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9352fa66-a243-4662-8bab-ec475ab88fc2" alt="linkedn_profile" width="250" height="250" style="border-radius: 50%;">
+  <img src="https://github.com/user-attachments/assets/9352fa66-a243-4662-8bab-ec475ab88fc2" alt="linkedn_profile" width="250" height="250" style="clip-path: circle();">
 </p>
 
 - **NaoufalSDI**  
