@@ -87,7 +87,7 @@ cd taxixact
 ---
 
 ## 👥 Contributeurs
-![linkedn_profile](https://github.com/user-attachments/assets/9352fa66-a243-4662-8bab-ec475ab88fc2)
+<img src="https://github.com/user-attachments/assets/9352fa66-a243-4662-8bab-ec475ab88fc2" alt="linkedn_profile" width="300" height="300">
 
 - **NaoufalSDI**  
   Développeur principal et concepteur de l'application.
